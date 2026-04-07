@@ -5,6 +5,8 @@
   "author": {
     "name": "Phu Le"
   },
+  "homepage": "https://github.com/quangphu1912/codebase-analyzer",
+  "repository": "https://github.com/quangphu1912/codebase-analyzer",
   "license": "MIT",
   "keywords": [
     "analysis",

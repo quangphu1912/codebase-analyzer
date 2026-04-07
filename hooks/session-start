@@ -19,7 +19,9 @@ escape_for_json() {
 escaped=$(escape_for_json "$content")
 ctx="<EXTREMELY_IMPORTANT>\nYou have codebase analysis superpowers.\n\nBelow is your 'codebase-analyzer:using-codebase-analyzer' skill. For all other skills, use the Skill tool:\n\n${escaped}\n</EXTREMELY_IMPORTANT>"
 
-if [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ -z "${COPILOT_CLI:-}" ]; then
+if [ -n "${CURSOR_PLUGIN_ROOT:-}" ]; then
+    printf '{\n  "additional_context": "%s"\n}\n' "$ctx"
+elif [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ -z "${COPILOT_CLI:-}" ]; then
     printf '{\n  "hookSpecificOutput": {\n    "hookEventName": "SessionStart",\n    "additionalContext": "%s"\n  }\n}\n' "$ctx"
 else
     printf '{\n  "additionalContext": "%s"\n}\n' "$ctx"
