@@ -54,6 +54,23 @@ digraph analysis_flow {
 
 **Special:** test-hypothesis, detect-hidden-contracts
 
+## Orchestration Skills (Development Workflow)
+
+Beyond analysis, this plugin provides development orchestration:
+
+| Trigger | Skill | What It Does |
+|---------|-------|-------------|
+| "build", "create", "implement", "add feature" | brainstorming | Design-first before implementation |
+| "plan this", "write a plan" | writing-plans | Spec -> bite-sized tasks |
+| "implement plan" | subagent-driven-development | Fresh subagent per task, review between |
+| "execute plan" | executing-plans | Batch execution with checkpoints |
+| "debug", "error", "not working" | systematic-debugging | Root cause investigation |
+| "write tests", "test this" | test-driven-development | RED-GREEN-REFACTOR |
+| "review code", "check my work" | requesting-code-review | Dispatch reviewer subagent |
+| "merge", "finish branch" | finishing-a-development-branch | Merge/PR workflow |
+| "parallel", "concurrent" | dispatching-parallel-agents | Concurrent subagents |
+| "verify", "done" | verification-before-completion | Verify commands pass |
+
 **Agent Dispatch Protocol:**
 
 | Skill | Dispatches Agent | When |
