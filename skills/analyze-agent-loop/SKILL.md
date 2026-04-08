@@ -110,8 +110,8 @@ The system prompt defines intent. The runtime code defines capability. A gap bet
 
 ## Trigger Signals
 
-- **HIGH confidence**: Conditional tool availability in the loop -> `map-conditional-behavior`
-- **HIGH confidence**: State transitions gated by conditions -> `map-conditional-behavior`
+- **HIGH confidence**: Conditional tool availability in the loop -> `extract-tool-graph`
+- **HIGH confidence**: State transitions gated by conditions -> `map-feature-gates`
 - **MEDIUM confidence**: Complex multi-step processing -> refactoring candidate
 - **LOW confidence**: Simple linear processing -> no deep dive needed
 

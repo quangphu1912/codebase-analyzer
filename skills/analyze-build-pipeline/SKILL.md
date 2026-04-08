@@ -34,7 +34,7 @@ Trace the source -> runtime transformation pipeline. Find filtering, compilation
 
 ## Trigger Signals
 
-- **HIGH confidence**: Build conditions that filter tools/capabilities -> `map-conditional-behavior`
+- **HIGH confidence**: Build conditions that filter tools/capabilities -> `extract-tool-graph`
 - **HIGH confidence**: Environment-specific code paths -> affects all downstream analysis
 - **MEDIUM confidence**: Code generation step -> provenance verified
 - **LOW confidence**: Standard build, no filtering -> no additional deep dive
@@ -84,7 +84,7 @@ AXIS: PROVIDER
   Impact: selects cloud SDK, auth module, storage adapter
 ```
 
-Downstream skills (map-conditional-behavior, map-entry-points) consume this catalogue to know which dimensions to explore. An incomplete catalogue means missed behavior branches.
+Downstream skills (extract-tool-graph, map-feature-gates) consume this catalogue to know which dimensions to explore. An incomplete catalogue means missed behavior branches.
 
 ## Red Flags
 

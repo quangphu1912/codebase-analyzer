@@ -65,7 +65,7 @@ Undocumented endpoints are a security surface. Specifically flag:
 
 ## Trigger Signals
 
-- **HIGH confidence**: APIs exposed conditionally behind feature flags -> `map-conditional-behavior`
+- **HIGH confidence**: APIs exposed conditionally behind feature flags -> `map-feature-gates`
 - **HIGH confidence**: Internal APIs exposed without documentation -> `classify-repo-artifacts`
 - **MEDIUM confidence**: Versioned APIs with deprecation patterns -> refactoring candidate
 - **LOW confidence**: Well-documented, stable API surface -> no deep dive needed

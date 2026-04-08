@@ -30,7 +30,7 @@ Find code that is unreachable, unused, or orphaned. Classify findings by removal
 
 ## Trigger Signals
 
-- **HIGH confidence**: Code dead in THIS build but build flags suggest alive in other configs -> `map-conditional-behavior`
+- **HIGH confidence**: Code dead in THIS build but build flags suggest alive in other configs -> `map-feature-gates`
 - **HIGH confidence**: Significant dead code behind feature flags -> `analyze-build-pipeline`
 - **MEDIUM confidence**: Dead code that was recently killed -> `analyze-agent-loop` (check git history)
 - **LOW confidence**: Standard unused code -> refactoring candidate only

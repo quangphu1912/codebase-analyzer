@@ -37,8 +37,8 @@ Build the import/require dependency graph. Find coupling, circular deps, and mod
 
 ## Trigger Signals
 
-- **HIGH confidence**: Conditional imports that vary by config -> `map-conditional-behavior`
-- **HIGH confidence**: Dynamic loading patterns (import(), require(variable)) -> `map-conditional-behavior`
+- **HIGH confidence**: Conditional imports that vary by config -> `map-feature-gates`
+- **HIGH confidence**: Dynamic loading patterns (import(), require(variable)) -> `extract-tool-graph`
 - **MEDIUM confidence**: Heavy coupling (god modules) -> refactoring candidate
 - **LOW confidence**: Clean import graph, low coupling -> no deep dive needed
 
