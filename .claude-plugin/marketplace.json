@@ -1,13 +1,13 @@
 {
-  "name": "codebase-analyzer-dev",
-  "description": "Development marketplace for codebase-analyzer plugin",
+  "name": "codebase-analyzer-marketplace",
+  "description": "Marketplace for codebase-analyzer plugin — analysis, reverse engineering, and development orchestration",
   "owner": {
     "name": "Phu Le"
   },
   "plugins": [
     {
       "name": "codebase-analyzer",
-      "description": "Progressive-depth codebase analysis and reverse engineering — reconnaissance triggers deep investigation from architecture to system intent",
+      "description": "Codebase analysis, reverse engineering, and development orchestration — 32 skills covering reconnaissance, deep investigation, TDD, debugging, planning, and code review",
       "version": "0.2.0",
       "source": "./",
       "author": {
