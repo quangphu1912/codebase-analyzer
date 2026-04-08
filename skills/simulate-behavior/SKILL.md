@@ -44,6 +44,47 @@ Enumerate gate combinations systematically. For N binary gates, there are 2^N po
 
 **Pruning:** For large gate counts, group gates by domain (auth, features, providers) and explore intra-domain combinations exhaustively, inter-domain combinations at boundaries only.
 
+## Behavioral Fingerprinting Methodology
+
+For each gate combination, produce a structured fingerprint:
+
+- **Available tools**: Which tools are registered and accessible?
+- **Active code paths**: Which branches execute under these conditions?
+- **Accessible data**: What data can be reached (databases, APIs, file system)?
+- **Exposed capabilities**: What can the user actually DO?
+- **Hidden behaviors**: What runs silently (logging, analytics, background tasks)?
+
+Compare fingerprints across scenarios. The DIFFERENCES are the insights. Two configurations that look similar on paper may have radically different behavioral profiles when you examine what's actually reachable versus merely registered.
+
+## Scenario Construction Guide
+
+Don't enumerate all 2^N states. Prioritize:
+
+- **Baseline**: Production config with default user type — your reference point for all comparisons
+- **Elevated**: Admin or internal user type — what extra capabilities appear?
+- **Degraded**: Missing feature flags, fallback config — what breaks silently?
+- **Adversarial**: Combinations that bypass security gates — what shouldn't work but might?
+- **Temporal**: Dev vs staging vs production — what changes across environments?
+
+Each scenario should produce a full fingerprint. Then compare fingerprints pairwise: baseline vs elevated (what capabilities appear?), baseline vs degraded (what fails open?), baseline vs adversarial (what security boundaries hold?).
+
+## Gap Detection
+
+After comparing fingerprints, ask:
+
+- Is there a scenario where capabilities EXCEED what the documentation claims?
+- Is there a scenario where security controls are silently disabled?
+- Are there gate combinations that produce undefined behavior (neither explicitly allowed nor denied)?
+
+These gaps are where bugs and vulnerabilities live. Document each gap with: the gate combination that produces it, the expected behavior, the actual behavior, and the risk if exploited in production.
+
+## Iron Law
+
+```
+The most important scenario is the one you didn't think to test.
+Systematically explore the state space instead of relying on intuition.
+```
+
 ## Dispatch Rule
 
 Dispatch `behavior-simulator` agent with gate map + scenarios. Agent traces code paths per scenario, recording:
