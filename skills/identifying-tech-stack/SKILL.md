@@ -7,7 +7,7 @@ description: Use when onboarding to a new project, evaluating migration feasibil
 
 ## Overview
 
-Catalog every technology, framework, library, and tool in use. First Track A skill — its output informs all subsequent analysis.
+Catalog every technology, framework, library, and tool in use. First Track A skill -- its output informs all subsequent analysis. This skill goes beyond surface-level detection to reveal the project's true runtime reality: what actually ships, what was migrated halfway, and what the team struggles with.
 
 ## Process
 
@@ -19,17 +19,19 @@ Catalog every technology, framework, library, and tool in use. First Track A ski
 6. Flag outdated or deprecated dependencies
 7. Produce tech stack report
 
-## Quick Reference
+## Diagnostic Reasoning
 
-| Signal File | What It Reveals |
-|-------------|----------------|
-| package.json | Node.js deps, scripts, engines |
-| Cargo.toml | Rust deps, features, targets |
-| go.mod | Go module path, deps |
-| requirements.txt / pyproject.toml | Python deps |
-| Dockerfile / docker-compose.yml | Container config, base images |
-| .github/workflows/ | CI/CD pipeline |
-| tsconfig.json | TypeScript config, strictness |
+1. **Read package manifests in dependency order:** Lock files first (ground truth of what's installed), then manifests (declared intent). Divergence = dependency drift.
+
+2. **Check scripts before dependencies:** `package.json` "scripts" reveal the ACTUAL build pipeline. If "build" runs webpack but devDependencies lists vite, someone migrated partially. Declared deps lie; scripts tell truth.
+
+3. **Compare dependencies vs devDependencies placement:** Business logic in devDependencies = build-time-only (code generation). Test utilities in dependencies = production monitoring. Misplaced deps reveal team confusion.
+
+4. **Look for overrides/resolutions:** Each override in `package.json` is a hidden story about a transitive dependency conflict. Count them -- more than 5 indicates dependency hell.
+
+5. **Check engine pinning:** Pinned engines (`"node": "18.x"`) reveal deployment constraints. Absent engines with cutting-edge syntax = only runs on developer machines.
+
+6. **Detect migration fossils:** Both `webpack.config` AND `vite.config` = migration in progress. Both `.eslintrc` AND `eslint.config` = migration stalled. Coexistence = incomplete transition.
 
 ## Trigger Signals
 
@@ -43,6 +45,18 @@ Catalog every technology, framework, library, and tool in use. First Track A ski
 - Reporting only top-level deps without checking transitive
 - Missing the build tool chain (only listing languages)
 - Not checking for lock files (package-lock, yarn.lock, Cargo.lock)
+
+## When NOT to Use
+
+When you only need to know "is this Python or JS?" -- just check file extensions. This skill is for deep stack understanding: dependency health, migration state, build pipeline truth, and team process gaps revealed by manifest structure. For simple language identification, file pattern matching suffices.
+
+## SECURITY_SIGNAL
+
+Watch for these during manifest analysis:
+
+- **Outdated dependencies with known CVEs:** Check package-lock or Cargo.lock versions against known vulnerability databases. A dependency pinned to a version with published CVEs is a direct risk.
+- **Private registries without auth:** `registry` fields pointing to private URLs without corresponding `.npmrc` or `.yarnrc.yml` credentials configuration = broken builds on fresh machines or leaked registry URLs.
+- **Build tools with known supply-chain attacks:** `postinstall` scripts that download binaries, `npx` commands in CI that resolve to the network, or pre-built binary dependencies without integrity hashes.
 
 ## Output Contract
 
