@@ -9,7 +9,7 @@ description: Use when separating prompt-driven behavior from code-driven behavio
 
 Compare two influence sources: (1) what the system prompt instructs, (2) what the code actually enforces. Determine the gap between "told to do" and "forced to do."
 
-**Prerequisite:** Reads `docs/analysis/conditional-behavior.md` (need gate map).
+**Prerequisite:** Reads `docs/analysis/tool-graph.md` and `docs/analysis/gate-map.md` (from `extract-tool-graph` and `map-feature-gates`).
 
 ## The Brilliant Secret
 

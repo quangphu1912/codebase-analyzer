@@ -16,19 +16,19 @@ What was this system designed to become? Not what it claims to do, but what the 
 Answer these by synthesizing evidence across all analysis phases:
 
 1. **What is this system designed to become?**
-   Sources: `architecture.md` + `conditional-behavior.md` + git archaeology (evolution trajectory)
+   Sources: `architecture.md` + `tool-graph.md` + `gate-map.md` + git archaeology (evolution trajectory)
    Look for: abandoned features revealing planned direction, investment patterns in service layer vs client, architectural decisions that only make sense at scale.
 
 2. **Where is the moat?**
-   Sources: `conditional-behavior.md` (gate analysis) -- client vs service vs ecosystem
+   Sources: `gate-map.md` (feature gate analysis) + `tool-graph.md` (tool registration) -- client vs service vs ecosystem
    Look for: where the most complex logic lives, which capabilities are server-controlled, what would be hardest to replicate.
 
 3. **What can it do that it does not expose?**
-   Sources: `conditional-behavior.md` + `dead-code.md`
+   Sources: `tool-graph.md` + `gate-map.md` + `dead-code.md`
    Look for: conditionally registered but currently dormant tools, hidden admin capabilities, API endpoints behind disabled feature flags.
 
 4. **How is behavior really controlled?**
-   Sources: `prompt-influence.md` + `conditional-behavior.md` (gates)
+   Sources: `prompt-influence.md` + `gate-map.md` (feature gates)
    Look for: remote configuration driving tool availability, prompt instructions shaping behavior at inference time, server-driven capability gating.
 
 5. **What are the hidden dependencies?**
@@ -37,7 +37,7 @@ Answer these by synthesizing evidence across all analysis phases:
 
 ## Synthesis Output
 
-This skill replaces `synthesize-findings`. Produce a single comprehensive report:
+Produce a single comprehensive report:
 
 ```markdown
 # Codebase Analysis Report
@@ -84,7 +84,7 @@ When constructing the system intent narrative, weight evidence by source reliabi
 |--------|--------|--------|
 | Architecture patterns | High | Structural decisions are expensive to change |
 | Git history (evolution) | High | Shows where investment actually went |
-| Conditional behavior | High | Gates reveal what the system protects |
+| Tool graph & feature gates | High | Gates reveal what the system protects |
 | Dead code / abandoned features | Medium | Shows intent but may be outdated |
 | Build pipeline | Medium | Reveals infrastructure dependencies |
 | Prompt instructions | Medium-Low | Can change without code deployment |

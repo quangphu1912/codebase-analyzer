@@ -11,28 +11,48 @@ If you were dispatched as a subagent to execute a specific task, skip this skill
 If you think there is even a 1% chance an analysis skill might apply to what you are doing, you ABSOLUTELY MUST invoke it. This is not negotiable.
 </EXTREMELY-IMPORTANT>
 
-Two tracks, progressive depth:
+classify-analysis-target is ALWAYS required. After classification, express lane lets you skip directly to any Track B skill (but Track A context may be missing).
 
-**Track A (Reconnaissance)** — surface scan, each skill outputs trigger signals:
-- `/codebase-analyzer:classify-analysis-target` — **FIRST. ALWAYS. No exceptions.**
-- `/codebase-analyzer:identifying-tech-stack`
-- `/codebase-analyzer:mapping-architecture`
-- `/codebase-analyzer:tracing-dependencies`
-- `/codebase-analyzer:detecting-dead-code`
-- `/codebase-analyzer:inventorying-api-surface`
-- `/codebase-analyzer:analyzing-code-quality`
+```dot
+digraph analysis_flow {
+    rankdir=TB;
+    node [fontname="monospace"];
 
-**Track B (Deep Dive)** — phased investigation, conditional on target type:
-- Phase 1: `trace-codebase-provenance`, `analyze-build-pipeline`
-- Phase 2: `classify-repo-artifacts`, `trace-data-flows`, `analyze-agent-loop`
-- Phase 3: `extract-tool-graph`, `map-feature-gates`, `simulate-behavior`, `analyze-prompt-influence`
-- Phase 4: `reconstruct-system-intent`
+    "User starts analysis" [shape=doublecircle];
+    "classify-analysis-target" [shape=box, style=bold, label="classify-analysis-target\n(ALWAYS FIRST)"];
+    "Express lane?" [shape=diamond];
+    "Track A: Recon skills" [shape=box];
+    "Check trigger signals\n+ security signals" [shape=diamond];
+    "HIGH priority" [shape=box, style=filled, fillcolor="#ffcccc"];
+    "MEDIUM priority" [shape=box];
+    "LOW priority" [shape=box];
+    "Track B Phase 1:\nProvenance + Build Pipeline" [shape=box];
+    "Track B Phase 2:\nArtifacts + Data Flows + Agent Loop" [shape=box];
+    "Track B Phase 3:\nTool Graph + Gates + Simulate + Prompt" [shape=box];
+    "Phase 4:\nreconstruct-system-intent" [shape=box, style=bold];
 
-**Special:**
-- `/codebase-analyzer:test-hypothesis` — state hypothesis, get verdict with evidence
-- `/codebase-analyzer:detect-hidden-contracts` — uncover implicit interfaces
+    "User starts analysis" -> "classify-analysis-target";
+    "classify-analysis-target" -> "Express lane?";
+    "Express lane?" -> "Track B Phase 1:\nProvenance + Build Pipeline" [label=" yes\n(skip Track A)"];
+    "Express lane?" -> "Track A: Recon skills" [label=" no"];
+    "Track A: Recon skills" -> "Check trigger signals\n+ security signals";
+    "Check trigger signals\n+ security signals" -> "HIGH priority" [label=" pause,\noffer deep dive"];
+    "Check trigger signals\n+ security signals" -> "MEDIUM priority" [label=" continue,\npresent after"];
+    "Check trigger signals\n+ security signals" -> "LOW priority" [label=" note\nfor summary"];
+    "HIGH priority" -> "Track B Phase 1:\nProvenance + Build Pipeline";
+    "MEDIUM priority" -> "Track B Phase 1:\nProvenance + Build Pipeline";
+    "LOW priority" -> "Track B Phase 1:\nProvenance + Build Pipeline";
+    "Track B Phase 1:\nProvenance + Build Pipeline" -> "Track B Phase 2:\nArtifacts + Data Flows + Agent Loop";
+    "Track B Phase 2:\nArtifacts + Data Flows + Agent Loop" -> "Track B Phase 3:\nTool Graph + Gates + Simulate + Prompt";
+    "Track B Phase 3:\nTool Graph + Gates + Simulate + Prompt" -> "Phase 4:\nreconstruct-system-intent";
+}
+```
 
-**Express lane:** Skip Track A, invoke any Track B skill directly. Missing context may produce shallower analysis.
+**Track A skills:** identifying-tech-stack, mapping-architecture, tracing-dependencies, detecting-dead-code, inventorying-api-surface, analyzing-code-quality
+
+**Track B phases:** Phase 1 (trace-codebase-provenance, analyze-build-pipeline) → Phase 2 (classify-repo-artifacts, trace-data-flows, analyze-agent-loop) → Phase 3 (extract-tool-graph, map-feature-gates, simulate-behavior, analyze-prompt-influence) → Phase 4 (reconstruct-system-intent)
+
+**Special:** test-hypothesis, detect-hidden-contracts
 
 **Agent Dispatch Protocol:**
 
@@ -46,8 +66,6 @@ Two tracks, progressive depth:
 Dispatch only when task exceeds native tool capability (5+ file reads across subsystems).
 
 **`.state` rules:** classify-analysis-target creates `docs/analysis/.state`. Every skill appends its status. Check before Track B (warn-but-continue).
-
-**Orchestration:** After Track A, check trigger signals + security signals. HIGH: pause, offer deep dive. MEDIUM: continue. LOW: note.
 
 **Red Flags — STOP and check yourself:**
 

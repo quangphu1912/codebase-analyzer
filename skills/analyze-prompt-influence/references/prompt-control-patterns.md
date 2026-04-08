@@ -197,4 +197,4 @@ For each prompt instruction found in the system:
 - [ ] Enforcement strength classified (tool removal > gate > filter > logging > none)
 - [ ] Gap type classified (none / narrow / wide / reverse)
 - [ ] Risk assessment for wide gaps (safety-critical? data-critical?)
-- [ ] Comparison with conditional-behavior gate map (are gates enforcing this?)
+- [ ] Comparison with tool graph and gate map (from `extract-tool-graph` and `map-feature-gates` — are gates enforcing this?)
