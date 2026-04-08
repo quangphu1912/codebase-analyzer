@@ -8,7 +8,7 @@ Skills are written using Claude Code tool names. Non-Claude Code platforms shoul
 |---------|-------------|----------|-------|
 | Auto-bootstrap | Yes (SessionStart hook) | Yes (plugin message transform) | Manual (AGENTS.md symlink + native skill discovery) |
 | Skill tool | Native | Native | N/A (inline discovery via symlink) |
-| Agent dispatch | Full (code-explorer, behavior-simulator) | Not available | Not available |
+| Agent dispatch | Full (code-explorer, behavior-simulator, code-reviewer) | Not available | Not available |
 | docs/analysis/ output | Full | Full | Fallback to inline (sandbox) |
 | Git commands | Full | Full | Sandbox-limited (may be detached HEAD) |
 | Task tracking | TodoWrite | todowrite | Markdown checklist |

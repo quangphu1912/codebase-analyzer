@@ -60,7 +60,7 @@ For `spawn_agent` support (limited agent dispatch), add to `~/.codex/config.toml
 multi_agent = true
 ```
 
-Note: Even with multi_agent enabled, codebase-analyzer's named agents (code-explorer, behavior-simulator) are not available via Codex. Skills continue in degraded mode.
+Note: Even with multi_agent enabled, codebase-analyzer's named agents (code-explorer, behavior-simulator, code-reviewer) are not available via Codex. Skills continue in degraded mode.
 
 ## Updating
 

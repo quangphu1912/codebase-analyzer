@@ -1,8 +1,9 @@
 # codebase-analyzer Plugin
 
 ## Architecture
-- 20 skills + 2 agents
+- 32 skills + 3 agents
 - Track A (reconnaissance) -> Track B (deep dive) -> System Intent
+- Orchestration skills cloned from superpowers (vendor/superpowers/) for development workflows
 - Standard output contract in `docs/analysis/`
 
 ## Three Depths Model
