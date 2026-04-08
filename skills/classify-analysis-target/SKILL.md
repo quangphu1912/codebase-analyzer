@@ -10,6 +10,18 @@ NO TRACK A SKILLS WITHOUT TARGET CLASSIFICATION FIRST.
 An unclassified target is an unanalyzable target.
 </HARD-GATE>
 
+## `.state` File Creation
+
+This skill creates `docs/analysis/.state` on first run. Write initial state:
+
+```markdown
+# Analysis State
+classify-analysis-target: complete
+```
+
+Format: one line per skill, `skill-name: complete | partial | blocked | skipped`.
+Every subsequent skill appends its status on completion.
+
 ## Overview
 
 Classify what we're analyzing before burning tokens. This skill determines target type, analysis feasibility, and applicable skills.
@@ -28,11 +40,13 @@ Classify what we're analyzing before burning tokens. This skill determines targe
 |-------------|---------|---------------|
 | Web app (standard) | All 6 | All phases |
 | Mobile (decompiled) | Tech stack only | All phases |
-| IaC (Terraform/CF) | Tech stack + deps | Phase 2-3 (no agent loop, no prompts) |
+| IaC (Terraform/CF) | Tech stack + deps | Phase 2-3 (3 skills + 4 skills; no agent loop, no prompts) |
 | Library/SDK | All 6 | If gated features found |
 | Monorepo | All 6 | All phases |
 | Container image | Tech stack only | All phases |
 | Obfuscated/minified | **BLOCK** | Fail fast |
+
+Note: All Track A skills emit SECURITY_SIGNAL in their output. These aggregate in the Track A summary for downstream security analysis.
 
 ## Rationalization Table
 
