@@ -12,11 +12,14 @@ main (stable, installable)
 
 ## Rules
 
-- `main` is always installable — `claude plugin install` points here
-- Branch off `main` for any change (`feat/`, `fix/`, `refactor/`)
-- PR back to `main`, squash merge
+- `main` is always installable — direct repo installs (`/plugin install`) pull from `main` HEAD
+- Marketplace installs are SHA-pinned — commits to `main` do **not** affect marketplace users
+- Small, atomic changes (docs, single-skill fixes) can go directly to `main`
+- Multi-commit work uses feature branches, squash merged back to `main`
 - Tag releases: `git tag v0.2.0 && git push --tags`
 - Users can pin versions: `codebase-analyzer.git#v0.1.0`
+
+See `docs/releasing.md` for the full release process and post-release workflow.
 
 ## Branch Naming
 

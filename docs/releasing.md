@@ -163,3 +163,65 @@ git push origin main
 - `marketplace.json` must live at `.claude-plugin/marketplace.json`, not the repo root
 - CHANGELOG headers should use the `v` prefix from day one to match git tags
 - Always add a one-line summary at the top of GitHub release notes — the full changelog is detailed but needs a quick overview
+
+## Post-Release: Development Workflow
+
+### Two install paths, different exposure
+
+The marketplace pins a specific SHA, so commits to `main` do **not** affect marketplace users:
+
+| Install method | Resolves to | Affected by `main` commits? |
+|---|---|---|
+| `/plugin marketplace add quangphu1912/ai-plugins` | Pinned SHA in `ai-plugins` marketplace.json | **No** |
+| `/plugin install quangphu1912/codebase-analyzer` (direct repo) | Latest `main` HEAD | **Yes** |
+
+This means:
+- **Marketplace users are fully protected** — they stay on the pinned release until you explicitly update the `ai-plugins` repo.
+- **Direct repo users get whatever is on `main`** — so `main` should stay installable.
+
+### Where to develop
+
+For small, self-contained changes (docs, single-skill fixes), committing directly to `main` is fine — marketplace users are protected by the SHA pin, and the change is complete in one commit.
+
+For multi-commit work (new skills, refactors, anything that could leave `main` in a broken state), use a feature branch:
+
+```bash
+# Branch off main
+git checkout -b feat/my-new-skill main
+
+# Develop and commit freely
+git add -A && git commit -m "wip: new skill"
+
+# When ready, squash merge back
+git checkout main
+git merge --squash feat/my-new-skill
+git commit -m "feat: add my-new-skill"
+git push origin main
+```
+
+### Decision guide
+
+| Change type | Where to work | Why |
+|---|---|---|
+| Typo fix, doc update | `main` directly | Atomic, can't break anything |
+| Single skill addition (complete) | `main` directly | One commit, installable immediately |
+| Multi-step feature | `feat/` branch | Keeps `main` installable between commits |
+| Risky refactor | `feat/` or `refactor/` branch | Protects direct-repo users |
+
+### When does the marketplace update?
+
+The marketplace is **never** updated automatically. Timeline:
+
+```
+Feature work ──► main is ready ──► Tag + GitHub Release ──► Update ai-plugins repo
+ (branches)       (merge/commit)     (release day)           (manual, same day)
+```
+
+The `ai-plugins` marketplace repo continues serving the previous release until you:
+
+1. Tag and push the new version (e.g., `v0.3.0`)
+2. Create the GitHub release
+3. Update `ai-plugins/.claude-plugin/marketplace.json` with the new SHA
+4. Push `ai-plugins` to GitHub
+
+See `docs/branching-strategy.md` for branch naming conventions and versioning rules.
