@@ -150,6 +150,13 @@ else
     FAIL=$((FAIL + 1))
 fi
 
+# --- Vendor subtree ---
+echo ""
+echo "--- Vendor Subtree ---"
+check "vendor/superpowers/ exists" test -d "$REPO_ROOT/vendor/superpowers"
+check "build-upstream-skills.sh is executable" test -x "$REPO_ROOT/scripts/build-upstream-skills.sh"
+check "sync-upstream.sh is executable" test -x "$REPO_ROOT/scripts/sync-upstream.sh"
+
 # --- Version sync ---
 echo ""
 echo "--- Version Sync ---"
