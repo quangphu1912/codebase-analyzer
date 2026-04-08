@@ -14,7 +14,7 @@ Add codebase-analyzer to the `plugin` array in your `opencode.json` (global or p
 }
 ```
 
-Restart OpenCode. The plugin auto-installs and registers all 16 analysis skills.
+Restart OpenCode. The plugin auto-installs and registers all 20 analysis skills.
 
 Verify by asking: "Analyze this codebase" or "What analysis skills do you have?"
 
@@ -32,10 +32,9 @@ use skill tool to load codebase-analyzer/classify-analysis-target
 codebase-analyzer updates automatically when you restart OpenCode.
 
 To pin a specific version:
-
 ```json
 {
-  "plugin": ["codebase-analyzer@git+https://github.com/quangphu1912/codebase-analyzer.git#v0.1.0"]
+  "plugin": ["codebase-analyzer@git+https://github.com/quangphu1912/codebase-analyzer.git#v0.2.0"]
 }
 ```
 

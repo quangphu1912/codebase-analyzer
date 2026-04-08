@@ -1,14 +1,16 @@
 # codebase-analyzer Plugin
 
 ## Architecture
-- 14 skills + 2 agents
-- Track A (reconnaissance) -> Track B (deep dive) -> Synthesis
+- 20 skills + 2 agents
+- Track A (reconnaissance) -> Track B (deep dive) -> System Intent
 - Standard output contract in `docs/analysis/`
 
+## Three Depths Model
+- **Surface** (Track A): Fast structural scans, architecture maps
+- **Deep** (Track B Phases 1-3): Git archaeology, gate extraction, behavior simulation
+- **Intent** (Track B Phase 4): Reconstruct what the system was built to do
+
 ## Skill Standards
-- Bootstrap skill: 250-350 words
-- Track A skills: <300 words + references
-- Track B skills: <400 words + references
 - Description field: starts with "Use when...", triggers only, no workflow summary
 - Every skill writes to `docs/analysis/` using standard contract
 - Trigger signals include: priority (high/med/low), confidence (high/med/low), evidence (file:line)

@@ -21,19 +21,19 @@ claude plugin install https://github.com/quangphu1912/codebase-analyzer.git
 | `/codebase-analyzer:analyzing-code-quality` | Anti-patterns, hotspots |
 
 ### Track B: Deep Reverse Engineering
-| Phase | Skills |
-|-------|--------|
-| 1. Establish Truth | `trace-codebase-provenance`, `analyze-build-pipeline` |
-| 2. Map Runtime | `classify-repo-artifacts`, `analyze-agent-loop` |
-| 3. Gates & Behavior | `map-conditional-behavior`, `analyze-prompt-influence` |
-| 4. System Intent | `reconstructing-system-intent` (via synthesize-findings) |
+| Phase | Skills | Purpose |
+|-------|--------|---------|
+| 1. Establish Truth | `trace-codebase-provenance`, `analyze-build-pipeline` | Git archaeology, build reality |
+| 2. Map Runtime | `classify-repo-artifacts`, `analyze-agent-loop`, `trace-data-flows` | Artifact classification, loops, data flows |
+| 3. Gates & Behavior | `extract-tool-graph`, `map-feature-gates`, `simulate-behavior`, `analyze-prompt-influence` | Tool maps, feature gates, scenario testing |
+| 4. System Intent | `reconstruct-system-intent` | What the system was built to do |
 
 ### Special Modes
 | Skill | Purpose |
 |-------|---------|
 | `/codebase-analyzer:classify-analysis-target` | Determine what we're analyzing (runs first) |
+| `/codebase-analyzer:detect-hidden-contracts` | Find implicit APIs and undocumented contracts |
 | `/codebase-analyzer:test-hypothesis` | Hypothesis-driven targeted analysis |
-| `/codebase-analyzer:synthesize-findings` | Comprehensive analysis report |
 
 ## How It Works
 
