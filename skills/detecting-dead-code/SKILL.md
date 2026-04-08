@@ -39,6 +39,39 @@ Find code that is unreachable, unused, or orphaned. Classify findings by removal
 
 Dynamic imports, reflection, plugin systems, and eval() can make live code appear dead. Always check for these before reporting.
 
+## Dead Code Archaeology
+
+Before removing anything, determine why code died. Use `git log -p -- <file>` to investigate. The story matters more than the fact of death.
+
+| Pattern | Meaning | Action |
+|---------|---------|--------|
+| Behind feature flag | Upcoming, not dead (not yet released) | Keep, check flag status |
+| Recently deleted | Changed requirement | Verify removal was intentional |
+| Commented out | Broken migration, someone couldn't finish | Check linked tickets/PRs |
+| Conditionally excluded | Configuration-dependent | May be alive in other builds |
+
+For detailed git archaeology commands, see `_shared/references/git-archaeology-techniques.md`.
+
+## Zombie Code Detection
+
+Code that appears dead but is loaded via reflection, plugin systems, or string-based dynamic imports. Static analysis will miss it. Search for these patterns:
+
+- `require(variable)`, `import(variable)` -- dynamic loading paths
+- `Reflect.get`, plugin registries loading modules by name or path
+- Framework auto-discovery patterns (Spring `@ComponentScan`, Python `entry_points`, JS `require.context`)
+
+If code is loaded dynamically through any of these mechanisms, it is alive regardless of what static import analysis says. Always verify against runtime loading before flagging as dead.
+
+## Security Signals
+
+Dead code removal can silently strip security controls:
+
+- Dead auth checks = removed security (was it intentional?)
+- Dead data validation = intentional bypass or forgotten migration
+- Dead logging = hidden audit gap (compliance impact)
+
+When dead code involves authentication, authorization, validation, or logging, escalate before removing. Verify against security requirements and compliance obligations.
+
 ## Red Flags
 
 - Reporting code as dead without checking dynamic imports
