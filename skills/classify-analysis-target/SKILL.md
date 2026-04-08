@@ -1,6 +1,6 @@
 ---
 name: classify-analysis-target
-description: Use before any codebase analysis — determines target type, feasibility, and which skills apply
+description: Use when starting any codebase analysis to determine target type, feasibility, and which skills apply before investing tokens
 ---
 
 ## Announce at start: "Using codebase-analyzer to classify the analysis target."

@@ -35,6 +35,12 @@ For OpenCode, restart to auto-update.
 
 ## Skills
 
+### Bootstrap
+| Skill | Purpose |
+|-------|---------|
+| `/codebase-analyzer:using-codebase-analyzer` | Auto-loaded entry point — routes to the right skills |
+| `/codebase-analyzer:classify-analysis-target` | Determine what we're analyzing (runs first) |
+
 ### Track A: Reconnaissance
 | Skill | Purpose |
 |-------|---------|
@@ -56,7 +62,6 @@ For OpenCode, restart to auto-update.
 ### Special Modes
 | Skill | Purpose |
 |-------|---------|
-| `/codebase-analyzer:classify-analysis-target` | Determine what we're analyzing (runs first) |
 | `/codebase-analyzer:detect-hidden-contracts` | Find implicit APIs and undocumented contracts |
 | `/codebase-analyzer:test-hypothesis` | Hypothesis-driven targeted analysis |
 
