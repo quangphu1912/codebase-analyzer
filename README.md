@@ -6,8 +6,10 @@ Progressive-depth codebase analysis and reverse engineering plugin for Claude Co
 
 ### Claude Code
 
-```bash
-claude plugin install https://github.com/quangphu1912/codebase-analyzer.git
+```
+/plugin marketplace add quangphu1912/ai-plugins
+/plugin install codebase-analyzer@ai-plugins
+/reload-plugins
 ```
 
 ### OpenCode
@@ -28,11 +30,11 @@ See [.codex/INSTALL.md](.codex/INSTALL.md)
 
 ## Updating
 
-```bash
-claude plugin update codebase-analyzer
 ```
-
-For OpenCode, restart to auto-update.
+/plugin marketplace update ai-plugins
+/plugin update codebase-analyzer
+/reload-plugins
+```
 
 ## Skills
 
