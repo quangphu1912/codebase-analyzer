@@ -24,6 +24,8 @@ The main session will give you a specific target to investigate. Your job is to 
 5. **Return findings**: Key files list + summary + anomalies
 
 ## Rules
+- You may be dispatched by: extract-tool-graph, trace-codebase-provenance, test-hypothesis
+- Your parent skill will read your findings from docs/analysis/
 - Use Glob and Grep to find files before reading them
 - Read entire files when they're relevant (don't skim)
 - Trace at least 3 levels deep in call chains
