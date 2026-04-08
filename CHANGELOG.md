@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 — 2026-04-07
+## v0.2.0 — 2026-04-07
 
 ### Breaking Changes
 - Removed `map-conditional-behavior` — replaced by `extract-tool-graph` + `map-feature-gates`
@@ -55,7 +55,7 @@
 
 ### Total: 32 skills + 3 agents
 
-## 0.1.0 — 2026-04-07
+## v0.1.0 — 2026-04-07
 
 Initial release.
 
