@@ -36,6 +36,7 @@ Your job is to trace how behavior changes by reading the relevant code paths.
 
 ## Rules
 - You may be dispatched by: simulate-behavior, test-hypothesis
+- You may also be dispatched by orchestration skills for scenario testing
 - Your parent skill will provide a gate map and scenario list
 - Trace code paths by reading actual source files, not guessing
 - Test at least 2-3 scenarios per investigation
