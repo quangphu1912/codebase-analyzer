@@ -76,6 +76,10 @@ Gates are a security boundary. Flag the following:
 - Feature flags that disable security controls without audit logging
 - Provider gates that fall back to less-secure backends without warning
 
+## Adversarial Lens
+
+If a gate was designed to be bypassable, what would it look like? Check: gates that check permissions but have a fallback that grants access, feature flags that default to "on" in production, admin checks that can be bypassed via API parameter. The most dangerous gate is one that looks like it works but doesn't.
+
 ## Red Flags
 
 - Only finding explicit gates, missing implicit ones (like build-time filtering)

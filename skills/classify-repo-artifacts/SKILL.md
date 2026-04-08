@@ -82,6 +82,10 @@ After classification, verify against provenance:
 - Cross-reference entropy outliers: do high-density files classified as "core" contain genuine business rules, or are they minified vendored code?
 - Do low-naming-entropy files classified as "core" pass the domain logic test above?
 
+## Adversarial Lens
+
+Generated code is a great place to hide things -- nobody reads it. If a module claims to be auto-generated but contains hand-crafted logic, that's suspicious. Check: do the generated files match what the generator would actually produce?
+
 ## Red Flags
 
 - Classifying generated code as core (wastes downstream analysis tokens)

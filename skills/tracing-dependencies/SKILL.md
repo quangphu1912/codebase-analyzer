@@ -46,6 +46,10 @@ Build the import/require dependency graph. Find coupling, circular deps, and mod
 
 Dependencies with known CVEs, private package registries without integrity checks, or dependency confusion attack vectors. Run `npm audit`, `cargo audit`, or `pip audit` during analysis. Flag any package sourced from a different registry than the primary (e.g., mixing npmjs.com with a private registry without verification).
 
+## Adversarial Lens
+
+If a dependency was malicious, how would it hide? Check for: transitive deps that no one directly imports, packages with similar names to popular ones (typosquatting), dependencies that only activate in production builds. The dependency tree is an attack surface.
+
 ## Red Flags
 
 - Only scanning static imports, missing dynamic ones

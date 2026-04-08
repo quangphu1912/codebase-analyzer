@@ -120,6 +120,10 @@ Watch for patterns indicating the system may be designed to:
 
 If any of these patterns are detected, flag them prominently in the report with a `SECURITY_SIGNAL` marker and include them in the Priority Actions section.
 
+## Adversarial Lens
+
+Ask not just "what was this designed to do?" but "what was this designed to BECOME?" Abandoned features that were 80% complete reveal future direction. Gates that restrict capabilities reveal fear of misuse. The architecture reveals intent better than any comment.
+
 ## Output Contract
 
 Write `docs/analysis/analysis-report-[YYYY-MM-DD].md`.

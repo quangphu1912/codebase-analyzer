@@ -106,6 +106,10 @@ Gate combinations that warrant immediate attention:
 - Combinations where audit logging is disabled alongside sensitive operations
 - States where data exfiltration paths become reachable
 
+## Adversarial Lens
+
+When simulating scenarios, always include: what happens when ALL gates are open simultaneously? This "everything enabled" state reveals the maximum capability surface -- what the system CAN do when nothing is restricted. Compare this to the documented behavior. The gap is the hidden capability surface.
+
 ## Red Flags
 
 - Only testing the default configuration — you're missing the edge cases that attackers exploit

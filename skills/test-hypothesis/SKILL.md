@@ -69,6 +69,10 @@ Each verdict has an evidentiary standard. Do not over-claim or under-claim.
 
 When rendering a verdict, explicitly note which tier of evidence you are applying. If evidence is weak, downgrade the verdict rather than over-claiming.
 
+## Adversarial Lens
+
+When testing a hypothesis, also test the inverse. If your hypothesis is "this app sends data to third parties," also check: does it receive data FROM third parties? Does it store data that could be retrieved later? The hypothesis you DON'T test is the one that matters most.
+
 ## Red Flags
 
 - Running full Track A when only 1-2 skills are needed

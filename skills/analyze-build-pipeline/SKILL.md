@@ -86,6 +86,10 @@ AXIS: PROVIDER
 
 Downstream skills (extract-tool-graph, map-feature-gates) consume this catalogue to know which dimensions to explore. An incomplete catalogue means missed behavior branches.
 
+## Adversarial Lens
+
+If someone wanted to inject code into the build, where would they do it? Check: webpack plugins, postinstall scripts, build-time code generation, bundler transforms. The build pipeline is the most powerful injection point -- it touches everything.
+
 ## Red Flags
 
 - Not checking for code generation steps that modify source

@@ -60,6 +60,10 @@ Watch for these during layer mapping:
 - Secrets or credentials in configuration modules that presentation layer can reach
 - Cross-cutting security concerns handled inconsistently across layers
 
+## Adversarial Lens
+
+If the team wanted to hide a backdoor, where in this architecture would they put it? Look for: utility modules that everything imports from (god modules with hidden functionality), middleware that sees all requests, "config" modules that execute code. The best hiding spots are where nobody looks.
+
 ## Red Flags
 
 - Assuming directory names map directly to layers without verification

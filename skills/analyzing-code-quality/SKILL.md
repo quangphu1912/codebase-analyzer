@@ -48,6 +48,10 @@ Code quality degrades from edges inward. Entry points and API handlers are polis
 
 High churn in auth/security files = unstable security posture. Complexity in data handling = injection risk. Missing error handling in financial calculations = correctness risk. These correlations are not theoretical -- they predict where the next incident originates.
 
+## Adversarial Lens
+
+Poor code quality in specific areas may be intentional. A deliberately complex function that could be simple may be obfuscating behavior. Check: is the complexity accidental (incompetence) or deliberate (obfuscation)? Consistent patterns of poor quality in ONE area suggest intent.
+
 ## Red Flags
 
 - Only measuring line counts without checking complexity

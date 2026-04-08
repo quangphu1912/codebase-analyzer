@@ -56,6 +56,10 @@ Note: All Track A skills emit SECURITY_SIGNAL in their output. These aggregate i
 | "I can skip this and just start analyzing" | Wrong skills produce garbage. 30 seconds saves hours. |
 | "The user asked a specific question" | Specific questions still need classification to know WHERE to look. |
 
+## Adversarial Lens
+
+Before classifying, ask: is this codebase what it claims to be? A repo named "internal-tools" might be a production system. A "prototype" might be running in production. The declared purpose and actual purpose may differ.
+
 ## Red Flags
 
 - Skipping this skill because "it's obviously a web app"

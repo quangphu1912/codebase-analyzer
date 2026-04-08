@@ -82,6 +82,10 @@ Present findings as a structured matrix:
 
 Rows = tools, columns = gate types, cells = available (Y/N/conditional with condition noted).
 
+## Adversarial Lens
+
+If a tool was designed to be hidden, how would it avoid detection? Check: tools registered dynamically at runtime (not in static analysis), tools loaded from external config, tools that are "disabled" but still have their registration code. The most dangerous tools are the ones that exist but aren't supposed to.
+
 ## Red Flags
 
 - **Only finding registered tools** — you are missing defined-but-excluded tools, which is the entire point of this analysis

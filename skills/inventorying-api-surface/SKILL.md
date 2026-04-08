@@ -48,20 +48,19 @@ Undocumented endpoints are a security surface. Specifically flag:
 - Endpoints reachable but not in any route index or OpenAPI spec
 - Environment variables that bypass auth or change security behavior
 
-## Quick Reference
+## Diagnostic Reasoning
 
-| Signal | API Type |
-|--------|----------|
-| export function, export class, module.exports | JS/TS public API |
-| pub fn, pub struct, pub enum | Rust public API |
-| @app.route, router.get/post | REST endpoint |
-| type Query, type Mutation | GraphQL endpoint |
-| @public, @api in JSDoc | Documented public API |
-| ipcMain.handle, ipcRenderer.send | IPC channel |
-| process.env.X (read, not default) | Environment variable contract |
-| yargs/commander .option/.command | CLI argument contract |
-| socket.on('message-type') | WebSocket message type |
-| plugin.register/hook.on | Plugin hook |
+1. **Start from routes, not controllers.** Route definitions reveal the intended API surface. Controllers may have methods that are never routed — these are dead endpoints or upcoming features. The route table is the source of truth; everything else is speculation.
+
+2. **Trace exports through re-export chains.** A function exported from `utils.js` but re-exported through `index.js` is public. The same function without a re-export is internal. The re-export graph determines what consumers can actually reach — the original export site does not.
+
+3. **Check for versioned APIs.** If `/v1/` and `/v2/` exist, the difference between them reveals what changed and why. Removed endpoints between versions = deprecated capabilities. Added endpoints = new features that may not be documented yet. The delta IS the migration guide.
+
+4. **Map middleware chains per route.** Middleware that runs BEFORE a route determines who can access it. Routes without auth middleware = publicly accessible. Routes with role-based middleware = permission-gated. The middleware chain IS the access control policy.
+
+5. **Find the shadow API.** Framework-specific patterns often expose more than explicit routes: GraphQL schemas, WebSocket message handlers, gRPC service definitions, event bus subscriptions. Each is an API surface that standard route-scanning misses. Look for framework-specific registries, not just HTTP verbs.
+
+6. **Correlate env var reads with behavior branches.** `process.env.FEATURE_X` without a default means the feature is opt-in. With a default, it is opt-out. Either way, the env var is an implicit API contract — it changes behavior without touching code, and consumers may depend on it without knowing.
 
 ## Trigger Signals
 
@@ -69,6 +68,10 @@ Undocumented endpoints are a security surface. Specifically flag:
 - **HIGH confidence**: Internal APIs exposed without documentation -> `classify-repo-artifacts`
 - **MEDIUM confidence**: Versioned APIs with deprecation patterns -> refactoring candidate
 - **LOW confidence**: Well-documented, stable API surface -> no deep dive needed
+
+## Adversarial Lens
+
+The documented API is what they WANT you to see. The undocumented API is what EXISTS. Look for: endpoints that respond but aren't in any docs, admin routes accessible without auth, API versions that expose more data than the latest. The gap between docs and reality is where secrets hide.
 
 ## Red Flags
 

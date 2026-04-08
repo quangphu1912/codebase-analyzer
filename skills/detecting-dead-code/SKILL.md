@@ -72,6 +72,10 @@ Dead code removal can silently strip security controls:
 
 When dead code involves authentication, authorization, validation, or logging, escalate before removing. Verify against security requirements and compliance obligations.
 
+## Adversarial Lens
+
+Dead code is the best hiding spot. If someone wanted to keep malicious code around, they'd make it LOOK dead (unused import, behind a feature flag that's always off, in a test file that never runs). Check: is this code really dead, or is it waiting to be activated?
+
 ## Red Flags
 
 - Reporting code as dead without checking dynamic imports

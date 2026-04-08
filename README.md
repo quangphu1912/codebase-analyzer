@@ -2,11 +2,36 @@
 
 Progressive-depth codebase analysis and reverse engineering plugin for Claude Code.
 
-## Quick Start
+## Installation
+
+### Claude Code
 
 ```bash
 claude plugin install https://github.com/quangphu1912/codebase-analyzer.git
 ```
+
+### OpenCode
+
+See [.opencode/INSTALL.md](.opencode/INSTALL.md)
+
+### Codex
+
+See [.codex/INSTALL.md](.codex/INSTALL.md)
+
+## Quick Start
+
+1. Install the plugin (see Installation above)
+2. Start a new Claude Code session in any codebase
+3. Ask: "Analyze this codebase" — the plugin auto-classifies and runs Track A
+4. Or test a hypothesis: "I think this app sends data to third parties"
+
+## Updating
+
+```bash
+claude plugin update codebase-analyzer
+```
+
+For OpenCode, restart to auto-update.
 
 ## Skills
 

@@ -115,6 +115,10 @@ The system prompt defines intent. The runtime code defines capability. A gap bet
 - **MEDIUM confidence**: Complex multi-step processing -> refactoring candidate
 - **LOW confidence**: Simple linear processing -> no deep dive needed
 
+## Adversarial Lens
+
+If the agent loop had a hidden behavior, where would it be? Check: error paths that trigger unexpected tool calls, state transitions that skip authorization checks, "fallback" behaviors that escalate capabilities. Hidden behaviors live in edge cases of the state machine.
+
 ## Red Flags
 
 - Only tracing the happy path, missing error/retry branches

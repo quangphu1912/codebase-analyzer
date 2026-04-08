@@ -65,6 +65,10 @@ Hidden contracts become security vulnerabilities when they exist in critical pat
 - Temporal contracts in session management (e.g., assuming session exists during request processing)
 - Error contracts that silently swallow auth failures or permission errors
 
+## Adversarial Lens
+
+Hidden contracts are where the most dangerous bugs live. If code assumes a specific ENV var exists, what happens when an attacker controls that ENV var? If code assumes function A runs before function B, what happens when an attacker calls B first? Hidden contracts are attack vectors.
+
 ## Red Flags
 
 - Only finding explicit contracts (types/interfaces) — the hidden ones are the point

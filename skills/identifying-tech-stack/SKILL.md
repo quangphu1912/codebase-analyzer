@@ -40,6 +40,10 @@ Catalog every technology, framework, library, and tool in use. First Track A ski
 - **MEDIUM confidence**: Mixed language ecosystem -> affects analysis strategy
 - **LOW confidence**: Standard tech stack, all well-known -> no deep dive needed
 
+## Adversarial Lens
+
+If the team wanted to hide their true tech stack, what would they change? Check for misleading package.json entries, fake build configs, or dependencies that are actually used but not listed (phantom deps). The declared stack is what they WANT you to see.
+
 ## Red Flags
 
 - Reporting only top-level deps without checking transitive
