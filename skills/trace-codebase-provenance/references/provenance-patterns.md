@@ -18,6 +18,27 @@
 - All code in one line or uniform formatting
 - Absence of comments, whitespace, and readable structure
 - try/catch around every statement
+- Perfect, mechanical formatting with no stylistic variation
+- Generic variable names: str1, str2, arg0, arg1, param1
+- No domain-specific language in naming (a real author names things after the domain)
+- Switch statements with sequential numeric cases
+- Type casts that a human would never write (e.g., `(function(x) { ... })(void 0)`)
+
+## Obfuscation Indicators
+- String arrays with index-based access: `_0x4a2f[3]` instead of literal strings
+- Hex-encoded or base64-encoded string literals scattered throughout
+- Control flow flattening: large switch statements inside a while loop with a state variable
+- Dead code injection: unreachable branches that look plausible
+- Proxy functions wrapping simple operations through multiple layers
+- Eval or Function constructor calls with dynamically constructed arguments
+- String decoding functions called before every string comparison
+
+## Deception Detection Patterns
+- **Misleading function names**: `sanitize()` that passes data through unchanged, `validate()` that only trims whitespace, `encrypt()` that uses base64 encoding
+- **Intent-implementation gaps**: Comments describing security checks that the code never performs, README claiming features the code doesn't implement
+- **Hidden in plain sight**: Sensitive operations in utility files with generic names (`utils.js`, `helpers.ts`), data exfiltration in error handlers
+- **Camouflage patterns**: Malicious code structured to resemble normal framework patterns, API calls to unknown domains buried inside legitimate-looking retry logic
+- **Test file disguise**: Credentials or endpoints stored in files named `test_config.js`, `mock_data.json`, or `fixtures/`
 
 ## Build Artifact Indicators
 - Files in dist/, build/, out/, target/ directories
@@ -31,3 +52,6 @@
 - Has documentation and comments
 - Variable names are descriptive
 - Code follows project conventions
+- Stylistic variation exists (real authors have quirks)
+- Domain-specific language appears in naming
+- Imperfections exist (real code has todos, commented-out experiments, inconsistent style)
