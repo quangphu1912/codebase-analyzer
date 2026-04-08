@@ -36,11 +36,24 @@ Identify quality patterns, anti-patterns, complexity hotspots, and risk areas th
 - **MEDIUM confidence**: High churn files with complex logic -> refactoring priority
 - **LOW confidence**: Normal quality patterns -> no deep dive needed
 
+## Quality-Churn Correlation
+
+A file that changes frequently AND has high complexity is a bug factory. A file that changes frequently but is simple is just a configuration hub. The CORRELATION is the insight, not the individual metrics. Use `git log --format='%H' --name-only` to find high-churn files, then cross-reference with complexity. For churn analysis commands, see `_shared/references/git-archaeology-techniques.md`.
+
+## Quality Gradients
+
+Code quality degrades from edges inward. Entry points and API handlers are polished. Internal services and data access layers accumulate debt. Check the gradient to find where debt hides. A codebase that is clean at the edges but rotten in the middle has a steeper remediation curve than one with uniform moderate quality.
+
+## SECURITY_SIGNAL
+
+High churn in auth/security files = unstable security posture. Complexity in data handling = injection risk. Missing error handling in financial calculations = correctness risk. These correlations are not theoretical -- they predict where the next incident originates.
+
 ## Red Flags
 
 - Only measuring line counts without checking complexity
 - Not distinguishing between intentional complexity (algorithms) and accidental
 - Missing test coverage indicators
+- Ignoring churn-complexity correlation (the single strongest bug predictor)
 
 ## Output Contract
 
