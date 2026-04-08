@@ -17,13 +17,22 @@ escape_for_json() {
 }
 
 escaped=$(escape_for_json "$content")
-ctx="<EXTREMELY_IMPORTANT>\nYou have codebase analysis superpowers.\n\nBelow is your 'codebase-analyzer:using-codebase-analyzer' skill. For all other skills, use the Skill tool:\n\n${escaped}\n</EXTREMELY_IMPORTANT>"
 
-if [ -n "${CURSOR_PLUGIN_ROOT:-}" ]; then
-    printf '{\n  "additional_context": "%s"\n}\n' "$ctx"
-elif [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ -z "${COPILOT_CLI:-}" ]; then
+# Degraded mode note for non-Claude Code platforms
+platform_note="\\n\\n**Platform Compatibility:**\\n- Agent dispatch (code-explorer, behavior-simulator) is available ONLY on Claude Code.\\n- If you cannot dispatch agents, execute simplified single-pass analysis (max 3 trace levels).\\n- Mark output as partial: \`Status: partial | Platform: degraded (no agent dispatch)\`.\\n- See PLATFORM-NOTES.md for full capability matrix and tool substitution table."
+
+ctx="<EXTREMELY_IMPORTANT>\\nYou have codebase analysis superpowers.\\n\\nBelow is your 'codebase-analyzer:using-codebase-analyzer' skill. For all other skills, use the Skill tool:\\n\\n${escaped}\\n</EXTREMELY_IMPORTANT>"
+
+# Capability probing: two modes only.
+# Claude Code: CLAUDE_PLUGIN_ROOT is set by the plugin runtime.
+# OpenCode: does NOT use hooks (uses ESM plugin JS directly).
+# Codex / future platforms: fall through to generic mode.
+if [ -n "${CLAUDE_PLUGIN_ROOT:-}" ]; then
+    # Claude Code: nested hookSpecificOutput format
     printf '{\n  "hookSpecificOutput": {\n    "hookEventName": "SessionStart",\n    "additionalContext": "%s"\n  }\n}\n' "$ctx"
 else
-    printf '{\n  "additionalContext": "%s"\n}\n' "$ctx"
+    # Generic fallback: works for Codex and any unknown platform
+    # Includes degraded mode note since agent dispatch is unavailable
+    printf '{\n  "additionalContext": "%s%s"\n}\n' "$ctx" "$platform_note"
 fi
 exit 0

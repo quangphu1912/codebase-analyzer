@@ -29,3 +29,11 @@
 ## Testing
 - RED-GREEN-REFACTOR for each skill
 - Test against diverse repo types (web app, library, IaC, monorepo)
+
+## Multi-Platform Support
+- **Claude Code**: Primary target. SessionStart hook, plugin manifests, Skill tool, full agent dispatch.
+- **OpenCode**: ESM plugin at `.opencode/plugins/codebase-analyzer.js`. Config hook + message transform. No agent dispatch (degraded mode).
+- **Codex**: Symlink-based skill discovery (`~/.agents/skills/`). AGENTS.md symlink. Sandbox fallback mode. No agent dispatch (degraded mode).
+- **Platform capabilities**: Defined in `skills/using-codebase-analyzer/PLATFORM-NOTES.md` (single source of truth).
+- **Validation**: `scripts/validate.sh` checks all skills, agents, hooks, and plugin health.
+- **Upstream sync**: `scripts/sync-upstream.sh` pulls upstream superpowers via git subtree + rebuilds skills.

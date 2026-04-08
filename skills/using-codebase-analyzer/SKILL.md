@@ -65,6 +65,20 @@ digraph analysis_flow {
 
 Dispatch only when task exceeds native tool capability (5+ file reads across subsystems).
 
+**Platform Capabilities:**
+
+Skills reference Claude Code tools and agent dispatch. On other platforms:
+
+| Capability | Claude Code | OpenCode | Codex |
+|-----------|-------------|----------|-------|
+| Full Track A + Track B | Yes | Yes (degraded: no agents) | Yes (degraded: no agents) |
+| Agent dispatch | Yes | No | No |
+| docs/analysis/ output | Yes | Yes | May fall back to inline |
+
+When agent dispatch is unavailable: warn user, execute simplified analysis (max 3 trace levels), mark output as `Status: partial` with degradation note.
+
+See `PLATFORM-NOTES.md` for tool substitution table and per-platform details.
+
 **`.state` rules:** classify-analysis-target creates `docs/analysis/.state`. Every skill appends its status. Check before Track B (warn-but-continue).
 
 **Red Flags — STOP and check yourself:**

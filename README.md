@@ -69,6 +69,19 @@ For OpenCode, restart to auto-update.
 
 Track A scans the surface. When it finds signals worth investigating deeper (with confidence scores), it offers to trigger Track B's phased deep dive. You can also jump straight to any skill or start a hypothesis test.
 
+## Platform Compatibility
+
+| Feature | Claude Code | OpenCode | Codex |
+|---------|-------------|----------|-------|
+| Auto-bootstrap | SessionStart hook | Plugin message transform | AGENTS.md symlink |
+| Full Track A | Yes | Yes | Yes |
+| Full Track B | Yes | Yes (degraded) | Yes (degraded) |
+| Agent dispatch | Yes | No | No |
+| docs/analysis/ output | Yes | Yes | Inline fallback |
+| Skill tool | Native | Native | N/A |
+
+See [PLATFORM-NOTES.md](skills/using-codebase-analyzer/PLATFORM-NOTES.md) for complete tool substitution table and degraded mode details.
+
 ## License
 
 MIT

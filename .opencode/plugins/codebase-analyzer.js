@@ -3,6 +3,7 @@
  *
  * Injects bootstrap context via first user message transform.
  * Auto-registers skills directory via config hook (no symlinks needed).
+ * Reads tool mapping from PLATFORM-NOTES.md (single source of truth).
  */
 
 import path from 'path';
@@ -52,6 +53,34 @@ export const CodebaseAnalyzerPlugin = async ({ client, directory }) => {
   const envConfigDir = normalizePath(process.env.OPENCODE_CONFIG_DIR, homeDir);
   const configDir = envConfigDir || path.join(homeDir, '.config/opencode');
 
+  const getToolMapping = () => {
+    const mappingPath = path.join(skillsDir, 'using-codebase-analyzer', 'PLATFORM-NOTES.md');
+    if (!fs.existsSync(mappingPath)) {
+      // Fallback: minimal inline mapping if PLATFORM-NOTES.md is missing
+      return `**Tool Mapping for OpenCode (fallback):**
+- \`TodoWrite\` → \`todowrite\`
+- \`Skill\` tool → OpenCode's native \`skill\` tool
+- \`Read\`, \`Write\`, \`Edit\`, \`Bash\`, \`Glob\`, \`Grep\` → Your native tools (same names)
+- \`Task\` tool (subagent) → Not available on OpenCode. Skills operate in degraded mode.
+- Agent dispatch (code-explorer, behavior-simulator) → Not available. Simplified inline analysis instead.
+
+Use OpenCode's native \`skill\` tool to list and load skills.`;
+    }
+
+    const platformNotes = fs.readFileSync(mappingPath, 'utf8');
+    // Extract the OpenCode column from the Tool Substitution Table
+    const tableMatch = platformNotes.match(/## Tool Substitution Table[\s\S]*?\n(\|.+\n)+/);
+    const table = tableMatch ? tableMatch[0] : '';
+
+    return `**Tool Mapping for OpenCode (from PLATFORM-NOTES.md):**
+
+${table}
+
+**Agent dispatch is NOT available on OpenCode.** Skills that normally dispatch agents (code-explorer, behavior-simulator) will execute simplified inline analysis instead. Output is marked as \`Status: partial\` with platform degradation note.
+
+Use OpenCode's native \`skill\` tool to list and load skills.`;
+  };
+
   const getBootstrapContent = () => {
     const skillPath = path.join(skillsDir, 'using-codebase-analyzer', 'SKILL.md');
     if (!fs.existsSync(skillPath)) return null;
@@ -59,14 +88,7 @@ export const CodebaseAnalyzerPlugin = async ({ client, directory }) => {
     const fullContent = fs.readFileSync(skillPath, 'utf8');
     const { content } = extractAndStripFrontmatter(fullContent);
 
-    const toolMapping = `**Tool Mapping for OpenCode:**
-When skills reference tools you don't have, substitute OpenCode equivalents:
-- \`TodoWrite\` → \`todowrite\`
-- \`Task\` tool with subagents → Use OpenCode's subagent system (@mention)
-- \`Skill\` tool → OpenCode's native \`skill\` tool
-- \`Read\`, \`Write\`, \`Edit\`, \`Bash\` → Your native tools
-
-Use OpenCode's native \`skill\` tool to list and load skills.`;
+    const toolMapping = getToolMapping();
 
     return `<EXTREMELY_IMPORTANT>
 You have codebase analysis superpowers.
