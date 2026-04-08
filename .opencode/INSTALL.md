@@ -16,7 +16,13 @@ Add codebase-analyzer to the `plugin` array in your `opencode.json` (global or p
 
 Restart OpenCode. The plugin auto-installs and registers all 32 skills (20 analysis + 12 orchestration).
 
-Verify by asking: "Analyze this codebase" or "What analysis skills do you have?"
+Verify installation by checking that the plugin was cached:
+
+```
+ls ~/.cache/opencode/node_modules/codebase-analyzer/
+```
+
+Or ask OpenCode: "Analyze this codebase" or "What analysis skills do you have?"
 
 ## Usage
 

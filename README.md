@@ -14,7 +14,19 @@ Progressive-depth codebase analysis and reverse engineering plugin for Claude Co
 
 ### OpenCode
 
-See [.opencode/INSTALL.md](.opencode/INSTALL.md)
+Add codebase-analyzer to the `plugin` array in your `opencode.json` (global or project-level):
+
+```json
+{
+  "plugin": ["codebase-analyzer@git+https://github.com/quangphu1912/codebase-analyzer.git"]
+}
+```
+
+Restart OpenCode. The plugin auto-installs and registers all 32 skills.
+
+Verify installation by checking that `~/.cache/opencode/node_modules/codebase-analyzer/` exists, or ask OpenCode: "What analysis skills do you have?"
+
+See [.opencode/INSTALL.md](.opencode/INSTALL.md) for pinning versions and troubleshooting.
 
 ### Codex
 
